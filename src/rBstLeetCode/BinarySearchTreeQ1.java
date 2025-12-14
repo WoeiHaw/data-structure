@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class BinarySearchTree {
+public class BinarySearchTreeQ1 {
 
     private Node root;
 
@@ -57,8 +57,8 @@ public class BinarySearchTree {
         int middle = (left+right)/2;
         Node node = new Node(nums[middle]);
 
-            node.left = sortedArrayToBST(nums,left,middle-1);
-            node.right = sortedArrayToBST(nums,middle+1,right);
+        node.left = sortedArrayToBST(nums,left,middle-1);
+        node.right = sortedArrayToBST(nums,middle+1,right);
 
         return node;
 

@@ -3,7 +3,7 @@ package rBstLeetCode;
 import java.util.Arrays;
 import java.util.List;
 
-public class Main {
+public class MainQ1 {
 
     public static void main(String[] args) {
 
@@ -32,7 +32,7 @@ public class Main {
 
 
     private static void checkBalancedAndCorrectTraversal(int[] nums, List<Integer> expectedTraversal) {
-        BinarySearchTree bst = new BinarySearchTree();
+        BinarySearchTreeQ1 bst = new BinarySearchTreeQ1();
         bst.sortedArrayToBST(nums);
         boolean isBalanced = bst.isBalanced();
         List<Integer> inorder = bst.inorderTraversal();
