@@ -1,24 +1,35 @@
 package sortingLeetCode;
 
-public class Main {
-
+public class MainSelectionSort {
     public static void main(String[] args) {
 
+//        LinkedList myLinkedList = new LinkedList(4);
+//        myLinkedList.append(2);
+//        myLinkedList.append(6);
+//        myLinkedList.append(5);
+//        myLinkedList.append(1);
+//        myLinkedList.append(3);
         LinkedList myLinkedList = new LinkedList(4);
         myLinkedList.append(2);
-        myLinkedList.append(6);
         myLinkedList.append(5);
         myLinkedList.append(1);
         myLinkedList.append(3);
+        myLinkedList.append(6);
+
+
+
 
 
         System.out.println("Unsorted Linked List:");
         myLinkedList.printList();
 
-        myLinkedList.insertionSortV2();
+        myLinkedList.selectionSort();
 
         System.out.println("\nSorted Linked List:");
         myLinkedList.printList();
+        System.out.println(myLinkedList.getTail().value);
+
+
 
         /*
             EXPECTED OUTPUT:

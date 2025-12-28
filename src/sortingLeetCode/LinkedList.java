@@ -60,20 +60,20 @@ public class LinkedList {
         length++;
     }
 
-    public void bubbleSort(){
-        if(length <2) return;
+    public void bubbleSort() {
+        if (length < 2) return;
         Node sortedUntil = null;
         Node currentNode = head;
-        while (sortedUntil != head.next){
-            if(currentNode.next != sortedUntil && currentNode.value > currentNode.next.value){
+        while (sortedUntil != head.next) {
+            if (currentNode.next != sortedUntil && currentNode.value > currentNode.next.value) {
                 int temp = currentNode.value;
                 currentNode.value = currentNode.next.value;
                 currentNode.next.value = temp;
             }
-            if(currentNode.next == sortedUntil){
+            if (currentNode.next == sortedUntil) {
                 sortedUntil = currentNode;
                 currentNode = head;
-            }else{
+            } else {
                 currentNode = currentNode.next;
             }
 
@@ -81,4 +81,83 @@ public class LinkedList {
         }
 
     }
+
+    public void selectionSort() {
+        if (length < 2) return;
+        Node current = this.head;
+        Node smallest = current;
+        Node innerCurrent = current.next;
+        while (current.next != null) {
+            if (smallest.value > innerCurrent.value) {
+                smallest = innerCurrent;
+            }
+            if (innerCurrent.next != null) {
+                innerCurrent = innerCurrent.next;
+            } else {
+                if (current.value != smallest.value) {
+                    int temp = current.value;
+                    current.value = smallest.value;
+                    smallest.value = temp;
+                }
+
+
+                current = current.next;
+                smallest = current;
+                innerCurrent = current.next;
+
+            }
+
+        }
+    }
+
+    public void insertionSort(){
+        if(length < 2) return;
+        Node sortedListHead = head;
+        Node unsortedListHead = head.next;
+        while (sortedListHead.next != null && unsortedListHead != null){
+            if( unsortedListHead.value <sortedListHead.value){
+                int temp = unsortedListHead.value;
+                unsortedListHead.value = sortedListHead.value;
+                sortedListHead.value = temp;
+            }
+
+            if(sortedListHead.next == unsortedListHead){
+                sortedListHead = head;
+                unsortedListHead  = unsortedListHead.next;
+
+            }else{
+                sortedListHead = sortedListHead.next;
+            }
+        }
+
+
+    }
+
+    public void insertionSortV2() {
+        if (head == null || head.next == null) return;
+
+        Node sorted = null;
+        Node current = head;
+
+        while (current != null) {
+            Node next = current.next;
+
+            if (sorted == null || current.value < sorted.value) {
+                current.next = sorted;
+                sorted = current;
+            } else {
+                Node temp = sorted;
+                while (temp.next != null && temp.next.value <= current.value) {
+                    temp = temp.next;
+                }
+                current.next = temp.next;
+                temp.next = current;
+            }
+
+            current = next;
+        }
+
+        head = sorted;
+    }
+
 }

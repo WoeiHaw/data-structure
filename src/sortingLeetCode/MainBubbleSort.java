@@ -1,6 +1,6 @@
 package sortingLeetCode;
 
-public class Main {
+public class MainBubbleSort {
 
     public static void main(String[] args) {
 
@@ -12,13 +12,16 @@ public class Main {
         myLinkedList.append(3);
 
 
+
         System.out.println("Unsorted Linked List:");
         myLinkedList.printList();
 
-        myLinkedList.insertionSortV2();
+        myLinkedList.bubbleSort();
 
         System.out.println("\nSorted Linked List:");
         myLinkedList.printList();
+
+
 
         /*
             EXPECTED OUTPUT:

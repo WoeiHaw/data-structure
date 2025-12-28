@@ -16,11 +16,10 @@ public class LongestConsecutiveSequence {
             int currentSteak = 0;
             if(!numsSet.contains(num-1)){
 
-                currentSteak += 1;
-                while (numsSet.contains(num+1)){
-                    currentSteak +=1;
-                    num++;
-                }
+                do {
+                    currentSteak += 1;
+
+                } while (numsSet.contains(++num));
 
                 if(currentSteak > longestSteak){
                     longestSteak = currentSteak;
