@@ -217,5 +217,33 @@ public class LinkedList {
 //       System.out.println("\n tail's next: " +tail.next);
     }
 
+    public void mergeV2(LinkedList otherList) {
+        Node otherHead = otherList.getHead();
+        Node dummy = new Node(0);
+        Node current = dummy;
+
+        while (head != null && otherHead != null) {
+            if (head.value < otherHead.value) {
+                current.next = head;
+                head = head.next;
+            } else {
+                current.next = otherHead;
+                otherHead = otherHead.next;
+            }
+            current = current.next;
+        }
+
+        if (head != null) {
+            current.next = head;
+        } else {
+            current.next = otherHead;
+            tail = otherList.getTail();
+        }
+
+        head = dummy.next;
+        length += otherList.getLength();
+    }
+
+
 
 }
