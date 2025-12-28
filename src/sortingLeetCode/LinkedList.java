@@ -48,6 +48,23 @@ public class LinkedList {
         }
     }
 
+    public void printAll() {
+        if (length == 0) {
+            System.out.println("Head: null");
+            System.out.println("Tail: null");
+        } else {
+            System.out.println("Head: " + head.value);
+            System.out.println("Tail: " + tail.value);
+        }
+        System.out.println("Length:" + length);
+        System.out.println("\nLinked List:");
+        if (length == 0) {
+            System.out.println("empty");
+        } else {
+            printList();
+        }
+    }
+
     public void append(int value) {
         Node newNode = new Node(value);
         if (length == 0) {
@@ -159,5 +176,46 @@ public class LinkedList {
 
         head = sorted;
     }
+
+    public void merge(LinkedList otherList){
+        Node otherHead = otherList.getHead();
+        Node dummy = new Node(0);
+        Node current = dummy;
+        Node thisHead = this.head;
+        length = 0;
+
+       while (otherHead != null && thisHead != null){
+
+           if(otherHead.value < thisHead.value){
+               current.next = otherHead;
+               otherHead = otherHead.next;
+           }else {
+               current.next = thisHead;
+               thisHead = thisHead.next;
+           }
+           current = current.next;
+           length++;
+
+
+       }
+
+       while (otherHead != null){
+           current.next = otherHead;
+           otherHead = otherHead.next;
+           current = current.next;
+           length++;
+       }
+       while (thisHead != null){
+           current.next = thisHead;
+           thisHead = thisHead.next;
+           current = current.next;
+           length++;
+       }
+
+       tail = current;
+       head = dummy.next;
+//       System.out.println("\n tail's next: " +tail.next);
+    }
+
 
 }
