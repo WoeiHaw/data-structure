@@ -1,10 +1,13 @@
 package linkedListLeetCode;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class LinkedList {
 
     private Node head;
     private Node tail;
-
+    private int length;
     class Node {
         int value;
         Node next;
@@ -95,6 +98,42 @@ public class LinkedList {
             }
         }
         return false;
+    }
+
+    public Node findKthFromEnd(int k){
+        if(k<=0) return  null;
+        Node slow = head;
+        Node fast = head;
+        for(int i = 0 ; i<k;i++){
+            if(fast == null ) return null;
+            fast = fast.next;
+        }
+
+        while (fast != null){
+            slow =  slow.next;
+            fast = fast.next;
+        }
+
+        return slow;
+    }
+
+    public void removeDuplicates(){
+        if( length<=1) return;
+        Set<Integer> unique = new HashSet<>();
+        Node pointer = head;
+        unique.add(head.value);
+
+        while (pointer.next != null){
+            if(!unique.add(pointer.next.value)){
+                Node temp = pointer.next;
+                pointer.next = temp.next;
+                temp.next =null;
+                length-=1;
+            }else{
+                pointer = pointer.next;
+            }
+        }
+
     }
 
 }
