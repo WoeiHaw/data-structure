@@ -84,18 +84,18 @@ public class LinKedListSwapPairs {
 
         dummy.next = head;
 
-        while (first.next != null){
-
-            Node temp = first;
-            first = second;
-            second = temp;
-            second.next =first;
+        while (first != null && first.next != null){
+            second = first.next;
+//            Node temp = first;
             first.next = second.next;
-            dummy.next = second;
+//            second = temp;
+            second.next =first;
+//            first.next = second.next;
+//            dummy.next = second;
+            prev.next = second;
 
             prev = first;
             first = prev.next;
-            second = first.next;
 
         }
 
