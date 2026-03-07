@@ -62,7 +62,7 @@ public class DoublyLinkedList {
             tail = null;
         }else{
             tail = tail.prev;
-            temp.next = null;
+            tail.next = null;
             temp.prev = null;
         }
 
