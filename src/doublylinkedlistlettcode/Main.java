@@ -2,7 +2,6 @@ package doublylinkedlistlettcode;
 
 public class Main {
 
-    // Helper to print forward traversal
     private static void printForward(DoublyLinkedList dll) {
         DoublyLinkedList.Node current = dll.getHead();
         if (current == null) {
@@ -18,13 +17,13 @@ public class Main {
         System.out.println();
     }
 
-    // Helper to print backward traversal
     private static void printBackward(DoublyLinkedList dll) {
-        DoublyLinkedList.Node current = dll.getTail();
+        DoublyLinkedList.Node current = dll.getHead();
         if (current == null) {
             System.out.println("Backward: empty");
             return;
         }
+        while (current.next != null) current = current.next;  // move to tail
         System.out.print("Backward: ");
         while (current != null) {
             System.out.print(current.value);
@@ -47,95 +46,86 @@ public class Main {
         System.out.println("Test 1: Empty List");
         dll = new DoublyLinkedList(1);
         dll.makeEmpty();
+        dll.partitionList(3);
         System.out.println("Expected Forward: empty");
         System.out.println("Expected Backward: empty");
         printForward(dll);
         printBackward(dll);
         System.out.println();
 
-        // Test 2: Single-node list
-        System.out.println("Test 2: Single Node");
-        dll = new DoublyLinkedList(10);
-        System.out.println("Expected Forward: 10");
-        System.out.println("Expected Backward: 10");
+        // Test 2: Single node (< x)
+        System.out.println("Test 2: Single Node (< x)");
+        dll = new DoublyLinkedList(1);
+        dll.partitionList(5);
+        System.out.println("Expected Forward: 1");
+        System.out.println("Expected Backward: 1");
         printForward(dll);
         printBackward(dll);
         System.out.println();
 
-        // Test 3: Multiple nodes after append
-        System.out.println("Test 3: Multiple Nodes (After Append)");
+        // Test 3: Single node (>= x)
+        System.out.println("Test 3: Single Node (>= x)");
+        dll = new DoublyLinkedList(9);
+        dll.partitionList(5);
+        System.out.println("Expected Forward: 9");
+        System.out.println("Expected Backward: 9");
+        printForward(dll);
+        printBackward(dll);
+        System.out.println();
+
+        // Test 4: All nodes < x
+        System.out.println("Test 4: All Nodes < x");
         dll = new DoublyLinkedList(1);
         dll.append(2);
         dll.append(3);
-        dll.append(4);
+        dll.partitionList(5);
+        System.out.println("Expected Forward: 1 <-> 2 <-> 3");
+        System.out.println("Expected Backward: 3 <-> 2 <-> 1");
+        printForward(dll);
+        printBackward(dll);
+        System.out.println();
+
+        // Test 5: All nodes >= x
+        System.out.println("Test 5: All Nodes >= x");
+        dll = new DoublyLinkedList(7);
+        dll.append(8);
+        dll.append(9);
+        dll.partitionList(5);
+        System.out.println("Expected Forward: 7 <-> 8 <-> 9");
+        System.out.println("Expected Backward: 9 <-> 8 <-> 7");
+        printForward(dll);
+        printBackward(dll);
+        System.out.println();
+
+        // Test 6: Mixed nodes
+        System.out.println("Test 6: Mixed Nodes");
+        dll = new DoublyLinkedList(3);
         dll.append(5);
-        System.out.println("Expected Forward: 1 <-> 2 <-> 3 <-> 4 <-> 5");
-        System.out.println("Expected Backward: 5 <-> 4 <-> 3 <-> 2 <-> 1");
-        printForward(dll);
-        printBackward(dll);
-        System.out.println();
-
-        // Test 4: Reverse an even-length list
-        System.out.println("Test 4: Reverse Even-Length List");
-        dll = new DoublyLinkedList(1);
-        dll.append(2);
-        dll.append(3);
-        dll.append(4);
-        dll.reverse();
-        System.out.println("Expected Forward: 4 <-> 3 <-> 2 <-> 1");
-        System.out.println("Expected Backward: 1 <-> 2 <-> 3 <-> 4");
-        printForward(dll);
-        printBackward(dll);
-        System.out.println();
-
-        // Test 5: Reverse an odd-length list
-        System.out.println("Test 5: Reverse Odd-Length List");
-        dll = new DoublyLinkedList(1);
-        dll.append(2);
-        dll.append(3);
-        dll.append(4);
+        dll.append(8);
         dll.append(5);
-        dll.reverse();
-        System.out.println("Expected Forward: 5 <-> 4 <-> 3 <-> 2 <-> 1");
-        System.out.println("Expected Backward: 1 <-> 2 <-> 3 <-> 4 <-> 5");
+        dll.append(10);
+        dll.append(2);
+        dll.append(1);
+        dll.partitionList(5);
+        System.out.println("Expected Forward: 3 <-> 2 <-> 1 <-> 5 <-> 8 <-> 5 <-> 10");
+        System.out.println("Expected Backward: 10 <-> 5 <-> 8 <-> 5 <-> 1 <-> 2 <-> 3");
         printForward(dll);
         printBackward(dll);
         System.out.println();
 
-        /*
-            EXPECTED OUTPUT:
-            ----------------
-            Test 1: Empty List
-            Expected Forward: empty
-            Expected Backward: empty
-            Forward: empty
-            Backward: empty
-
-            Test 2: Single Node
-            Expected Forward: 10
-            Expected Backward: 10
-            Forward: 10
-            Backward: 10
-
-            Test 3: Multiple Nodes (After Append)
-            Expected Forward: 1 <-> 2 <-> 3 <-> 4 <-> 5
-            Expected Backward: 5 <-> 4 <-> 3 <-> 2 <-> 1
-            Forward: 1 <-> 2 <-> 3 <-> 4 <-> 5
-            Backward: 5 <-> 4 <-> 3 <-> 2 <-> 1
-
-            Test 4: Reverse Even-Length List
-            Expected Forward: 4 <-> 3 <-> 2 <-> 1
-            Expected Backward: 1 <-> 2 <-> 3 <-> 4
-            Forward: 4 <-> 3 <-> 2 <-> 1
-            Backward: 1 <-> 2 <-> 3 <-> 4
-
-            Test 5: Reverse Odd-Length List
-            Expected Forward: 5 <-> 4 <-> 3 <-> 2 <-> 1
-            Expected Backward: 1 <-> 2 <-> 3 <-> 4 <-> 5
-            Forward: 5 <-> 4 <-> 3 <-> 2 <-> 1
-            Backward: 1 <-> 2 <-> 3 <-> 4 <-> 5
-        */
-
+        // Test 7: Duplicates around pivot
+        System.out.println("Test 7: Duplicates Around Pivot");
+        dll = new DoublyLinkedList(5);
+        dll.append(1);
+        dll.append(5);
+        dll.append(0);
+        dll.append(5);
+        dll.partitionList(5);
+        System.out.println("Expected Forward: 1 <-> 0 <-> 5 <-> 5 <-> 5");
+        System.out.println("Expected Backward: 5 <-> 5 <-> 5 <-> 0 <-> 1");
+        printForward(dll);
+        printBackward(dll);
+        System.out.println();
     }
 
 }

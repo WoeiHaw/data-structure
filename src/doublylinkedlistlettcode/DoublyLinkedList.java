@@ -115,6 +115,40 @@ public class DoublyLinkedList {
         head = temp;
     }
 
+    public void partitionList(int x){
+        if (head==null) return;
+        Node dumm1 = new Node(0);
+        Node dumm2 = new Node(0);
+
+        Node prev1 = dumm1;
+        Node prev2 = dumm2;
+
+        Node current = head;
+
+        while (current != null){
+            if(current.value<x){
+                prev1.next = current;
+                current.prev = prev1;
+                prev1 = prev1.next;
+            }else{
+                prev2.next = current;
+                current.prev = prev2;
+                prev2 = prev2.next;
+            }
+            current = current.next;
+        }
+
+        if(dumm2.next !=null){
+            prev1.next = dumm2.next;
+            dumm2.next.prev = prev1;
+            prev2.next = null;
+        }
+        head = dumm1.next;
+        head.prev = null;
+
+
+    }
+
 }
 
 
